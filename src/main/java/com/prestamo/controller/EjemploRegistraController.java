@@ -37,46 +37,6 @@ public class EjemploRegistraController {
 		return ResponseEntity.ok(lstSalida);
 	}
 
-	@PostMapping
-	public ResponseEntity<?> registra(@RequestBody Ejemplo objEjemplo){
-		HashMap<String, Object> salida = new HashMap<>();
-		objEjemplo.setFechaRegistro(new Date());
-		objEjemplo.setFechaActualizacion(new Date());
-		objEjemplo.setEstado(AppSettings.ACTIVO);
-		
-		Ejemplo objSalida = ejemploService.insertaActualizaEjemplo(objEjemplo);
-		if (objSalida == null) {
-			salida.put("mensaje", "Error en el registro");
-		}else {
-			salida.put("mensaje", "Registro de ejemplo con el ID >>> " + objEjemplo.getIdEjemplo() + 
-										" >>> DES >> "+ objEjemplo.getDescripcion());
-		}
-		return ResponseEntity.ok(salida);
-	}
-	
-	@GetMapping("/validaDescripcionRegistra")
-	public String validaDescripcion(@RequestParam(name = "descripcion")String descripcion) {
-		 List<Ejemplo> lstSalida =ejemploService.listaEjemploPorDescripcionIgual(descripcion);
-		 if (lstSalida.isEmpty()) {
-			 return "{\"valid\":true}";
-		 }else {
-			 return "{\"valid\":false}";
-		 }
-			
-	}
-	
-	@GetMapping("/listaEjemploPorNombreLike/{var}")
-	@ResponseBody
-	public ResponseEntity<?> listaEjemploPorNombreLike(@PathVariable("var") String nombre){
-		List<Ejemplo> lstSalida = null;
-		if (nombre.equals("todos")) {
-			lstSalida =ejemploService.listaEjemplo();
-		}else {
-			lstSalida =ejemploService.listaEjemploPorDescripcionLike(nombre +  "%");
-		}
-		return ResponseEntity.ok(lstSalida);
-	}
-	
 	@PostMapping("/registraEjemplo")
 	@ResponseBody
 	public ResponseEntity<?> insertaEjemplo(@RequestBody Ejemplo obj) {
