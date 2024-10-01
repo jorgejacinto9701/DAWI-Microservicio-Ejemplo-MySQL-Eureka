@@ -25,7 +25,7 @@ import com.prestamo.util.AppSettings;
 @RestController
 @RequestMapping("/url/ejemplo")
 @CrossOrigin(AppSettings.URL_CROSS_ORIGIN)
-public class EjemploRegistraController {
+public class EjemploController {
 
 	@Autowired
 	private EjemploService ejemploService;
