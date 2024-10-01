@@ -31,7 +31,7 @@ public class EjemploRegistraController {
 	@Autowired
 	private EjemploService ejemploService;
 	
-	@GetMapping
+	@GetMapping("/lista")
 	public ResponseEntity<List<Ejemplo>> lista(){
 		List<Ejemplo> lstSalida = ejemploService.listaEjemplo();
 		return ResponseEntity.ok(lstSalida);
